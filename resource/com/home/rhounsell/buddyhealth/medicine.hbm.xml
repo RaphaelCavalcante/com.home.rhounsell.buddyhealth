@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<hibernate-mapping>
+		<class name="com.home.rhounsell.byddyhealth.medicine" table="medicine" catalog="buddyhealth">
+			<id name="id" type="java.lang.Integer">
+				<column name="ID"/>
+				<generator class ="identify"/>
+			</id>
+			
+			<many-to-one name = "pet" class="com.home.rhounsell.buddyhealth.Pet" fetch="select">
+				<column name="ID" not-null = "true" />
+			</many-to-one>
+			
+			<property name="medicineName" type="string">
+				<column name="NAME"/>
+			</property>
+			<property name="startDate" type="java.util.Date">
+				<column name="START_DATE"/>
+			</property>
+			<property name="endDate" type="java.util.Date">
+				<column name="END_DATE"/>
+			</property>
+		</class>
+	</hibernate-mapping>
