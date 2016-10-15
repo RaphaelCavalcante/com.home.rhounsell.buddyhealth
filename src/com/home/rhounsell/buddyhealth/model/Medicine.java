@@ -1,54 +1,103 @@
 package com.home.rhounsell.buddyhealth.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@SuppressWarnings("serial")
 @Entity
-@Table
-public class Medicine {
-	@Id
-	@GeneratedValue
-	private Integer id;
+@Table (name="medicine", catalog="buddyhealth")
+public class Medicine implements java.io.Serializable{
 	
-	private String medicineName;
-	private Date startDate;
-	private Date endingDate;
+	private Integer medicineId;
+	private String name;
+	private String description;
+	private Date firstDose;
+	private Date lastDose;
+	private String dosage;
+	private String notes;
+	private Set<Pet> pets = new HashSet<Pet>(0);
 	
 	public Medicine(){}
+	public Medicine(String name, String description, Date firstDose, Date lastDose, String dosage, String notes){
+		this.name=name;
+		this.description= description;
+		this.firstDose=firstDose;
+		this.lastDose=lastDose;
+		this.dosage=dosage;
+		this.notes=notes;
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="medicine_id", nullable=false, unique=true)
+	public Integer getMedicineId() {
+		return medicineId;
+	}
+	public void setMedicineId(Integer medicineId) {
+		this.medicineId = medicineId;
+	}
+	@Column(name="name", nullable=false)
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Column(name="description", nullable=false)
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	@Temporal(TemporalType.DATE)
+	@Column(name="first_dose", nullable=false)
+	public Date getFirstDose() {
+		return firstDose;
+	}
+	public void setFirstDose(Date firstDose) {
+		this.firstDose = firstDose;
+	}
+	@Temporal(TemporalType.DATE)
+	@Column(name="last_dose", nullable=false)
+	public Date getLastDose() {
+		return lastDose;
+	}
+	public void setLastDose(Date lastDose) {
+		this.lastDose = lastDose;
+	}
 	
-	public Medicine(String medicineName, Date startDate, Date endingDate){
-		this.medicineName = medicineName;
-		this.startDate = startDate;
-		this.endingDate = endingDate;
+	@Column(name="dosage",nullable=false)
+	public String getDosage() {
+		return dosage;
 	}
-
-	public String getMedicineName() {
-		return medicineName;
+	public void setDosage(String dosage) {
+		this.dosage = dosage;
 	}
-
-	public void setMedicineName(String medicineName) {
-		this.medicineName = medicineName;
+	@Column(name="notes", nullable=false)
+	public String getNotes() {
+		return notes;
 	}
-
-	public Date getStartDate() {
-		return startDate;
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	@ManyToMany(fetch = FetchType.LAZY)
+	public Set <Pet> getPets(){
+		return this.pets;
 	}
-
-	public Date getEndingDate() {
-		return endingDate;
-	}
-
-	public void setEndingDate(Date endingDate) {
-		this.endingDate = endingDate;
-	}
-	
-	
+	public void setPets(Set <Pet> pets){
+		this.pets = pets;
+		
+	}	
 }

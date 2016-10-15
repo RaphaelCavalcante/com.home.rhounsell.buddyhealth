@@ -13,9 +13,10 @@
 		<property name="show_sql">true</property>
 		<property name="connection.pool_size">1</property>
 
-		<mapping resource="com/home/rhounsell/buddyhealth/medicine.hbm.xml"/>
-		<mapping resource="com/home/rhounsell/buddyhealth/history.hbm.xml"/>
-		<mapping resource="com/home/rhounsell/buddyhealth/pet.hbm.xml"/>"
-
+  		<mapping class="com.home.rhounsell.buddyhealth.model.Pet"/>
+  		<mapping class="com.home.rhounsell.buddyhealth.model.Owner"/>
+  		<mapping class="com.home.rhounsell.buddyhealth.model.Medicine"/> 
+		<!-- <mapping class="com.home.rhounsell.buddyhealth.model.PetMedicine"/>-->
+		
 	</session-factory>
 </hibernate-configuration>
