@@ -7,18 +7,16 @@ import java.util.Date;
 import com.home.rhounsell.buddyhealth.controller.MedicineController;
 import com.home.rhounsell.buddyhealth.controller.OwnerController;
 import com.home.rhounsell.buddyhealth.controller.PetController;
-import com.home.rhounsell.buddyhealth.controller.PetMedicineController;
 import com.home.rhounsell.buddyhealth.model.Medicine;
 import com.home.rhounsell.buddyhealth.model.Owner;
 import com.home.rhounsell.buddyhealth.model.Pet;
-import com.home.rhounsell.buddyhealth.model.PetMedicine;
 
 public class App {
 	public static void main (String args[]){
 		OwnerController ownerCtrl = new OwnerController();
 		PetController petCtrl= new PetController();
 		MedicineController medicineCtrl = new MedicineController();
-		PetMedicineController petMedicineCtrl= new PetMedicineController();
+		
 		
 		Pet pet = petCtrl.getPet();
 		pet.setAge(5);
