@@ -11,9 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table (name="owner", catalog="buddyhealth")
+@XmlRootElement
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Owner implements java.io.Serializable{
 	/**
 	 * 
@@ -26,7 +34,9 @@ public class Owner implements java.io.Serializable{
 	private Set <Pet> ownerPets= new HashSet<Pet>(0);
 	
 	public Owner(){}
-	public Owner(String name, String phone){
+	
+	@JsonCreator
+	public Owner(@JsonProperty("name") String name, @JsonProperty("phone") String phone){
 		this.name=name;
 		this.phone=phone;
 	}
@@ -58,6 +68,7 @@ public class Owner implements java.io.Serializable{
 		return serialVersionUID;
 	}
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="owner")
+	@JsonBackReference
 	public Set <Pet>getOwnerPets() {
 		return ownerPets;
 	}

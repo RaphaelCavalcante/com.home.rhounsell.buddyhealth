@@ -15,9 +15,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table (name="medicine", catalog="buddyhealth")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Medicine implements java.io.Serializable{
 	
 	private Integer medicineId;
@@ -93,6 +97,7 @@ public class Medicine implements java.io.Serializable{
 		this.notes = notes;
 	}
 	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonBackReference
 	public Set <Pet> getPets(){
 		return this.pets;
 	}

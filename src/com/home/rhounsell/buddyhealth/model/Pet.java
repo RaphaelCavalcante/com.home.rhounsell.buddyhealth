@@ -19,8 +19,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name ="pet", catalog="buddyhealth")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pet implements java.io.Serializable{
 
 	/**
@@ -94,6 +99,7 @@ public class Pet implements java.io.Serializable{
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="owner_id",nullable=false)
+	@JsonIgnore
 	public Owner getOwner(){
 		return this.owner;
 	}
@@ -108,6 +114,7 @@ public class Pet implements java.io.Serializable{
 	inverseJoinColumns= {
 			@JoinColumn (name="medicine_id", nullable=false)
 	})
+	@JsonManagedReference
 	public Set<Medicine> getPetMedicines(){
 		return this.medicines;
 	}

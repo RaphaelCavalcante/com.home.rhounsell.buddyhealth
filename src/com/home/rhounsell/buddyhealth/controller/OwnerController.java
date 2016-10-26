@@ -2,18 +2,23 @@ package com.home.rhounsell.buddyhealth.controller;
 
 import java.util.Set;
 
+import org.glassfish.jersey.server.ResourceConfig;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.home.rhounsell.buddyhealth.BuddyHealthBinder;
 import com.home.rhounsell.buddyhealth.HibernateUtil;
 import com.home.rhounsell.buddyhealth.model.Owner;
 import com.home.rhounsell.buddyhealth.model.Pet;
+import com.home.rhounsell.buddyhealth.view.OwnerControllerInterface;
 
-public class OwnerController {
+public class OwnerController extends ResourceConfig implements OwnerControllerInterface {
 	private Owner owner;
  
 	
 	public OwnerController(){
+		register(new BuddyHealthBinder());
+		packages(true, "com.rhounsell.buddyhealth");
 		owner= new Owner();
 	}
 	
@@ -30,7 +35,6 @@ public class OwnerController {
 		Owner owner = (Owner) session.load(Owner.class, ownerId);
 		//session.getTransaction().commit();
 		session.flush();
-		session.close();
 		return owner;
 	}
 	public void createOwner(Owner newOwner){
@@ -38,34 +42,31 @@ public class OwnerController {
 		Session session= sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(newOwner);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
+//		session.flush();
 	}
 	public void updateOwner(Owner owner){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(owner);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 	}
-	public void deleteUser(Integer ownerId){
+	public void deleteOwner(Integer ownerId){
 		Session session=HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Owner owner= (Owner) session.load(Owner.class, ownerId);
 		session.delete(owner);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 	}
 	public Set<Pet> getOwnerPets(Integer ownerId){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Owner owner = (Owner) session.load(Owner.class, ownerId);
-	//	session.getTransaction().commit();
-		session.close();
 		session.flush();
+		session.getTransaction().commit();
 		return owner.getOwnerPets();
 	}
 }
