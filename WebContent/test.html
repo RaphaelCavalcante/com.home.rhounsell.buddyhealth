@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Form to create a new resource</title>
+ </head>
+<body>
+CREATE NEW USER
+  <form action="../com.home.rhounsell.buddyhealth/rest/owner/new" method="POST">
+  <label for="name">NAME</label>
+  <input name="name" />
+  <br/>
+  <label for="phone">PHONE</label>
+  <input name="phone" />
+  <input type="submit" value="Submit" />
+  </form>
+DELETE USER:
+ <form action="../com.home.rhounsell.buddyhealth/rest/owner/delete" method="DELETE">
+ <label for="id">ID</label>
+ <input name="id"/>
+ <input type="submit" value="delete"/>
+ </form>
+</body>
+</html> 
