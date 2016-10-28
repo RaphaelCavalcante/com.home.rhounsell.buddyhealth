@@ -12,13 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -40,7 +40,7 @@ public class Pet implements java.io.Serializable{
 	private Date birthDate;
 	private String breed;
 	private String species;
-	private Owner owner;
+	private Owner owner_id;
 	
 	private Set<Medicine> medicines = new HashSet<Medicine>(0);
 	
@@ -97,24 +97,19 @@ public class Pet implements java.io.Serializable{
 	public void setSpecies(String species){
 		this.species=species;
 	}
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="owner_id",nullable=false)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="owner_id")
 	@JsonIgnore
+	@JsonManagedReference
 	public Owner getOwner(){
-		return this.owner;
+		return this.owner_id;
 	}
 	public void setOwner(Owner owner){
-		this.owner=owner;
+		this.owner_id=owner;
 	}
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL)
-	@JoinTable(name="pet_medicine", catalog="buddyhealth",
-	joinColumns={
-			@JoinColumn(name="pet_id", nullable=false)},
-	inverseJoinColumns= {
-			@JoinColumn (name="medicine_id", nullable=false)
-	})
-	@JsonManagedReference
+	@ManyToMany(cascade= CascadeType.ALL)
+	@JsonBackReference
 	public Set<Medicine> getPetMedicines(){
 		return this.medicines;
 	}

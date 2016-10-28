@@ -4,12 +4,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @SuppressWarnings("serial")
 @Entity
@@ -96,8 +99,14 @@ public class Medicine implements java.io.Serializable{
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JsonBackReference
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="pet_medicine", catalog="buddyhealth",
+	joinColumns={
+			@JoinColumn(name="medicine_id", nullable=false)},
+	inverseJoinColumns= {
+			@JoinColumn (name="pet_id", nullable=false)
+	})
+	@JsonManagedReference
 	public Set <Pet> getPets(){
 		return this.pets;
 	}
