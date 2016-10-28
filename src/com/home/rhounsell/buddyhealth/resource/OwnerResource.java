@@ -62,7 +62,7 @@ public class OwnerResource {
 	@PUT
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response putTodo(Owner owner){
+	public Response putOwner(Owner owner){
 		//Owner c = owner.getValue();
 		System.out.println(owner);
 		return putAndGetResponse(owner);

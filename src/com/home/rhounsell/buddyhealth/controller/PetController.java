@@ -26,34 +26,30 @@ public class PetController {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Pet pet= (Pet) session.load(Pet.class, petId);
-//		session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 		return pet;
 	}
 	public void createPet(Pet pet){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(pet);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 	}
 	public void updatePet(Pet pet){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(pet);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 	}
 	public void deletePet(Integer petId){
 		Pet pet = this.getPetById(petId);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(pet);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 	}
 }
