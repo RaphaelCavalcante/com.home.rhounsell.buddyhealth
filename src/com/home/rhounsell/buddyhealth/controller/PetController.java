@@ -1,10 +1,12 @@
 package com.home.rhounsell.buddyhealth.controller;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.Session;
 
 import com.home.rhounsell.buddyhealth.HibernateUtil;
+import com.home.rhounsell.buddyhealth.model.Medicine;
 import com.home.rhounsell.buddyhealth.model.Pet;
 
 public class PetController {
@@ -51,5 +53,13 @@ public class PetController {
 		session.delete(pet);
 		session.flush();
 		session.getTransaction().commit();
+	}
+	public Set<Medicine> getPetMedicines(Integer petId){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Pet pet=(Pet) session.load(Pet.class, petId);
+//		@SuppressWarnings("unchecked")
+//		Set<Medicine> petMedicines = (Set<Medicine>) session.createQuery("SELECT medicine FROM pet_medicine WHERE pet_id="+petId+"");
+		return pet.getPetMedicines();
 	}
 }

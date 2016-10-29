@@ -20,5 +20,16 @@ DELETE USER:
  <input name="id"/>
  <input type="submit" value="delete"/>
  </form>
+ 
+CREATE PET:
+<form action="../com.home.rhounsell.buddyhealth/rest/pet/new" method="POST">
+<label for="name">NAME:</label> <input name="name"> <br>
+<label for="birth_date">BIRTH DATE:</label> <input name="birth_date" type="date"><br>
+<label for="age"> AGE:</label> <input name="age"><br>
+<label for="species">SPECIES</label> <input name="species"><br>
+<label for="breed">BREED:</label> <input name="breed"><br>
+<label for="owner">OWNER ID</label>  <TEXTAREA NAME="owner" COLS=40 ROWS=6></TEXTAREA><br>
+<input type="submit">
+</form>
 </body>
 </html> 

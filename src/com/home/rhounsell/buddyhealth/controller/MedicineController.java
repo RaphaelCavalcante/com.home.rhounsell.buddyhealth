@@ -1,11 +1,13 @@
 package com.home.rhounsell.buddyhealth.controller;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.Session;
 
 import com.home.rhounsell.buddyhealth.HibernateUtil;
 import com.home.rhounsell.buddyhealth.model.Medicine;
+import com.home.rhounsell.buddyhealth.model.Pet;
 
 public class MedicineController {
 	private Medicine medicine;
@@ -22,34 +24,38 @@ public class MedicineController {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Medicine medicine = (Medicine) session.load(Medicine.class, medicineId);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 		return medicine;
 	}
 	public void createMedicine(Medicine medicine){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(medicine);
-//		session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 	}
 	public void updateMedicine(Medicine medicine){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.merge(medicine);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
 	}
 	public void deleteMedicine(Integer medicineId){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Medicine medicine= this.getMedicineById(medicineId);
 		session.delete(medicine);
-		//session.getTransaction().commit();
 		session.flush();
-		session.close();
+		session.getTransaction().commit();
+	}
+	public Set<Pet> getMedicineUsage(Integer medicineId){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Medicine medicine = this.getMedicineById(medicineId);
+		session.flush();
+		session.getTransaction().commit();
+		return medicine.getPets();
 	}
 }

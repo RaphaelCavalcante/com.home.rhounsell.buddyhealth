@@ -3,7 +3,7 @@ package com.home.rhounsell.buddyhealth.resource;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.home.rhounsell.buddyhealth.controller.PetController;
+import com.home.rhounsell.buddyhealth.model.Medicine;
 import com.home.rhounsell.buddyhealth.model.Owner;
 import com.home.rhounsell.buddyhealth.model.Pet;
 
@@ -55,9 +56,10 @@ public class PetResource {
 			@FormParam("species") String species,
 			@FormParam("owner") String ownerJSON) throws ParseException{
 		Pet pet = new Pet(name, age);
-		pet.setBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse(birthDate));
+		pet.setBirthDate(new SimpleDateFormat("dd-MM-yyyy").parse(birthDate));
 		pet.setBreed(breed);
 		pet.setOwner(getOwnerJson(ownerJSON));
+		pet.setSpecies(species);
 		petController.createPet(pet);
 	}
 	
@@ -67,20 +69,18 @@ public class PetResource {
 	public Response putPet(Pet pet){
 		return putAndGetResponse(pet);
 	}
-	
-	/*
-	 * TODO
+
 	@GET
-	@Pat("/{id}/medicines")
-	@Produces({MediaType.APPLICATION_JSON)
-	public Set<<Medicine> getPetMedicines(@PathParam("id") Integer id){
-		Set<Medicine> petMedicines = petController.getMedicines();
+	@Path("/{id}/medicines")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Set<Medicine> getPetMedicines(@PathParam("id") Integer id){
+		Set<Medicine> petMedicines = petController.getPetMedicines(id);
 		if(petMedicines == null){
 			throw new RuntimeException("Get: pet doesn't have medicines");
 		}
 		return petMedicines;
 	
-	}*/
+	}
 	private Owner getOwnerJson(String ownerJSON){
 		ObjectMapper mapper = new ObjectMapper();
 		Owner owner = new Owner();

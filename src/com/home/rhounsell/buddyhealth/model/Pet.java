@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -109,7 +110,14 @@ public class Pet implements java.io.Serializable{
 	}
 	
 	@ManyToMany(cascade= CascadeType.ALL)
-	@JsonBackReference
+	@JoinTable(name="pet_medicine", catalog="buddyhealth",
+	joinColumns={
+			@JoinColumn(name="pet_id", nullable=false)},
+	inverseJoinColumns= {
+			@JoinColumn (name="medicine_id", nullable=false)
+	})
+	@JsonManagedReference
+	@JsonIgnore
 	public Set<Medicine> getPetMedicines(){
 		return this.medicines;
 	}

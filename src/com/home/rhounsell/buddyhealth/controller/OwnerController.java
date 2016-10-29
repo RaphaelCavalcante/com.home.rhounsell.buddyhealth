@@ -33,8 +33,8 @@ public class OwnerController extends ResourceConfig implements OwnerControllerIn
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Owner owner = (Owner) session.load(Owner.class, ownerId);
-		//session.getTransaction().commit();
 		session.flush();
+		session.getTransaction().commit();
 		return owner;
 	}
 	public void createOwner(Owner newOwner){
@@ -44,7 +44,6 @@ public class OwnerController extends ResourceConfig implements OwnerControllerIn
 		session.save(newOwner);
 		session.flush();
 		session.getTransaction().commit();
-//		session.flush();
 	}
 	public void updateOwner(Owner owner){
 		Session session = HibernateUtil.getSessionFactory().openSession();

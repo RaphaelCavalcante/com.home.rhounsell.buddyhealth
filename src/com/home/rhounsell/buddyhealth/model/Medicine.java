@@ -100,18 +100,12 @@ public class Medicine implements java.io.Serializable{
 		this.notes = notes;
 	}
 	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="pet_medicine", catalog="buddyhealth",
-	joinColumns={
-			@JoinColumn(name="medicine_id", nullable=false)},
-	inverseJoinColumns= {
-			@JoinColumn (name="pet_id", nullable=false)
-	})
-	@JsonManagedReference
+	@JsonBackReference
 	public Set <Pet> getPets(){
 		return this.pets;
 	}
 	public void setPets(Set <Pet> pets){
 		this.pets = pets;
 		
-	}	
+	}
 }
