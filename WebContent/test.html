@@ -31,5 +31,25 @@ CREATE PET:
 <label for="owner">OWNER ID</label>  <TEXTAREA NAME="owner" COLS=40 ROWS=6></TEXTAREA><br>
 <input type="submit">
 </form>
+<br>
+CREATE MEDICINE FOR PET
+<br>
+<form action="../com.home.rhounsell.buddyhealth/rest/medicine/new" method="POST">
+<label for="name">NAME</label><br>
+<input name="name"><br>
+<label for="description">DESCRIPTION</label><br>
+<input name="description"><br>
+<label for="first_dose"> FIRST DOSE </label><br>
+<input type="date" name="first_dose"><br>
+<label for="last_dose">LAST DOSE</label> <br>
+<input type="date" name="last_dose"><br>
+<label for="dosage">DOSAGE</label><br>
+<textarea name="dosage" rows="6" cols="40"></textarea><br>
+<label for="notes">NOTES</label><br>
+<textarea name="notes" rows="6" cols="40"></textarea><br>
+<label for="petJson">PET JSON</label><br>
+<textarea name="petJson" rows="6" cols="40"></textarea><br>
+<input type="submit" value="create medicine">
+</form>
 </body>
 </html> 

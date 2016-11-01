@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,16 +18,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @SuppressWarnings("serial")
 @Entity
 @Table (name="medicine", catalog="buddyhealth")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Medicine implements java.io.Serializable{
-	
 	private Integer medicineId;
 	private String name;
 	private String description;
@@ -35,7 +33,6 @@ public class Medicine implements java.io.Serializable{
 	private String dosage;
 	private String notes;
 	private Set<Pet> pets = new HashSet<Pet>(0);
-	
 	public Medicine(){}
 	public Medicine(String name, String description, Date firstDose, Date lastDose, String dosage, String notes){
 		this.name=name;
@@ -84,7 +81,6 @@ public class Medicine implements java.io.Serializable{
 	public void setLastDose(Date lastDose) {
 		this.lastDose = lastDose;
 	}
-	
 	@Column(name="dosage",nullable=false)
 	public String getDosage() {
 		return dosage;
@@ -99,13 +95,17 @@ public class Medicine implements java.io.Serializable{
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JsonBackReference
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="pet_medicine", catalog="buddyhealth",
+	joinColumns={
+			@JoinColumn(name="medicine_id", nullable=false, updatable=false)},
+	inverseJoinColumns= {
+			@JoinColumn (name="pet_id", nullable=false,updatable=false)
+	})
 	public Set <Pet> getPets(){
 		return this.pets;
 	}
 	public void setPets(Set <Pet> pets){
-		this.pets = pets;
-		
+		this.pets = pets;		
 	}
 }

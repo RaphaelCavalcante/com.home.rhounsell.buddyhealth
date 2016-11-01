@@ -58,8 +58,8 @@ public class PetController {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Pet pet=(Pet) session.load(Pet.class, petId);
-//		@SuppressWarnings("unchecked")
-//		Set<Medicine> petMedicines = (Set<Medicine>) session.createQuery("SELECT medicine FROM pet_medicine WHERE pet_id="+petId+"");
+		session.flush();
+		session.getTransaction().commit();
 		return pet.getPetMedicines();
 	}
 }

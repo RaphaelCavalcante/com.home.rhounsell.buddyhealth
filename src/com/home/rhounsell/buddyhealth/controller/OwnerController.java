@@ -14,18 +14,14 @@ import com.home.rhounsell.buddyhealth.view.OwnerControllerInterface;
 
 public class OwnerController extends ResourceConfig implements OwnerControllerInterface {
 	private Owner owner;
- 
-	
 	public OwnerController(){
 		register(new BuddyHealthBinder());
 		packages(true, "com.rhounsell.buddyhealth");
 		owner= new Owner();
 	}
-	
 	public OwnerController(String name, String phone){
 		owner=new Owner (name, phone);
 	}
-	
 	public Owner getOwner(){
 		return this.owner;
 	}

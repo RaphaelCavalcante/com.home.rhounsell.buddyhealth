@@ -56,15 +56,12 @@ public class OwnerResource {
 			@FormParam("phone") String phone){
 		Owner owner = new Owner(name, phone);
 		ownerController.createOwner(owner);
-		//servletResponse.sendRedirect("");
 	}
 	
 	@PUT
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response putOwner(Owner owner){
-		//Owner c = owner.getValue();
-		System.out.println(owner);
 		return putAndGetResponse(owner);
 	}
 		

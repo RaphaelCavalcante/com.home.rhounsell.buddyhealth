@@ -12,39 +12,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name ="pet", catalog="buddyhealth")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pet implements java.io.Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	private Integer petId;
-	
 	private String name;
 	private Integer age;
 	private Date birthDate;
 	private String breed;
 	private String species;
 	private Owner owner_id;
-	
-	private Set<Medicine> medicines = new HashSet<Medicine>(0);
-	
+	private Set<Medicine> petMedicines = new HashSet<Medicine>(0);
 	public Pet(){}
 	public Pet(String name, Integer age){
 		this.name = name;
@@ -59,7 +48,6 @@ public class Pet implements java.io.Serializable{
 	public void setId(Integer id){
 		this.petId=id;
 	}
-	
 	@Column(name="name")
 	public String getName() {
 		return name;
@@ -82,7 +70,6 @@ public class Pet implements java.io.Serializable{
 	public void setBirthDate(Date birthDate){
 		this.birthDate=birthDate;
 	}
-	
 	@Column(name="breed",nullable=false)
 	public String getBreed(){
 		return this.breed;
@@ -90,7 +77,6 @@ public class Pet implements java.io.Serializable{
 	public void setBreed(String breed){
 		this.breed=breed;
 	}
-	
 	@Column(name="species", nullable=false)
 	public String getSpecies(){
 		return this.species;
@@ -100,28 +86,18 @@ public class Pet implements java.io.Serializable{
 	}
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="owner_id")
-	@JsonIgnore
-	@JsonManagedReference
 	public Owner getOwner(){
 		return this.owner_id;
 	}
 	public void setOwner(Owner owner){
 		this.owner_id=owner;
 	}
-	
-	@ManyToMany(cascade= CascadeType.ALL)
-	@JoinTable(name="pet_medicine", catalog="buddyhealth",
-	joinColumns={
-			@JoinColumn(name="pet_id", nullable=false)},
-	inverseJoinColumns= {
-			@JoinColumn (name="medicine_id", nullable=false)
-	})
-	@JsonManagedReference
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="pets")
 	@JsonIgnore
 	public Set<Medicine> getPetMedicines(){
-		return this.medicines;
+		return this.petMedicines;
 	}
 	public void setPetMedicines(Set<Medicine> medicine){
-		this.medicines =medicine;
+		this.petMedicines = medicine;
 	}
 }

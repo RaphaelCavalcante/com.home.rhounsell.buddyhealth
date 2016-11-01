@@ -28,5 +28,4 @@ public class History {
 	public String getNotes(){
 		return notes;
 	}
-	//private Date date;
 }
