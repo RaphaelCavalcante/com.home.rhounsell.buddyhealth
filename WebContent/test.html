@@ -6,7 +6,7 @@
  </head>
 <body>
 CREATE NEW USER
-  <form action="../com.home.rhounsell.buddyhealth/rest/owner/new" method="POST">
+  <form action="../com.home.rhounsell.buddyhealth/api/owner/new" method="POST">
   <label for="name">NAME</label>
   <input name="name" />
   <br/>
@@ -15,26 +15,27 @@ CREATE NEW USER
   <input type="submit" value="Submit" />
   </form>
 DELETE USER:
- <form action="../com.home.rhounsell.buddyhealth/rest/owner/delete">
+ <form action="../com.home.rhounsell.buddyhealth/api/owner/delete">
  <label for="id">ID</label>
  <input name="id"/>
  <input type="submit" value="delete"/>
  </form>
  
 CREATE PET:
-<form action="../com.home.rhounsell.buddyhealth/rest/pet/new" method="POST">
+<form action="../com.home.rhounsell.buddyhealth/api/pet/new" method="POST">
 <label for="name">NAME:</label> <input name="name"> <br>
 <label for="birth_date">BIRTH DATE:</label> <input name="birth_date" type="date"><br>
 <label for="age"> AGE:</label> <input name="age"><br>
 <label for="species">SPECIES</label> <input name="species"><br>
 <label for="breed">BREED:</label> <input name="breed"><br>
+<label for="weight">WEIGHT:</label> <input name="weight"><br>
 <label for="owner">OWNER ID</label>  <TEXTAREA NAME="owner" COLS=40 ROWS=6></TEXTAREA><br>
 <input type="submit">
 </form>
 <br>
 CREATE MEDICINE FOR PET
 <br>
-<form action="../com.home.rhounsell.buddyhealth/rest/medicine/new" method="POST">
+<form action="../com.home.rhounsell.buddyhealth/api/medicine/new" method="POST">
 <label for="name">NAME</label><br>
 <input name="name"><br>
 <label for="description">DESCRIPTION</label><br>

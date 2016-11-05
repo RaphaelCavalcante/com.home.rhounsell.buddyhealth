@@ -54,8 +54,9 @@ public class PetResource {
 			@FormParam("age") Integer age,
 			@FormParam("breed") String breed,
 			@FormParam("species") String species,
+			@FormParam("weight") Integer weight,
 			@FormParam("owner") String ownerJSON) throws ParseException{
-		Pet pet = new Pet(name, age);
+		Pet pet = new Pet(name, age, weight);
 		pet.setBirthDate(new SimpleDateFormat("dd-MM-yyyy").parse(birthDate));
 		pet.setBreed(breed);
 		pet.setOwner(getOwnerJson(ownerJSON));

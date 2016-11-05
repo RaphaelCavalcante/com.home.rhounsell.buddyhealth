@@ -14,12 +14,13 @@ public class PetController {
 	public PetController(){
 		pet = new Pet();
 	}
-	public PetController(String name, Integer age, Date birthDate, String species){
+	public PetController(String name, Integer age, Date birthDate, String species, Integer weight){
 		pet= new Pet();
 		pet.setName(name);
 		pet.setAge(age);
 		pet.setBirthDate(birthDate);
 		pet.setSpecies(species);
+		pet.setWeight(weight);
 	}
 	public Pet getPet(){
 		return this.pet;

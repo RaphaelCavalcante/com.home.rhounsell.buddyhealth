@@ -32,12 +32,14 @@ public class Pet implements java.io.Serializable{
 	private Date birthDate;
 	private String breed;
 	private String species;
+	private Integer weight;
 	private Owner owner_id;
 	private Set<Medicine> petMedicines = new HashSet<Medicine>(0);
 	public Pet(){}
-	public Pet(String name, Integer age){
+	public Pet(String name, Integer age, Integer weight){
 		this.name = name;
 		this.age = age;
+		this.weight= weight;
 	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -83,6 +85,13 @@ public class Pet implements java.io.Serializable{
 	}
 	public void setSpecies(String species){
 		this.species=species;
+	}
+	@Column(name="weight", nullable=false)
+	public Integer getWeight(){
+		return this.weight;
+	}
+	public void setWeight(Integer weight){
+		this.weight= weight;
 	}
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="owner_id")
